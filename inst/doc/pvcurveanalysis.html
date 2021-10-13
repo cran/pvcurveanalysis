@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Anna Raesch" />
+
+<meta name="date" content="2021-10-12" />
+
+<title>pvcurveanalysis</title>
+
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">pvcurveanalysis</h1>
+<h4 class="author">Anna Raesch</h4>
+<h4 class="date">2021-10-12</h4>
+
+
+
+<div id="a-toolbox-for-the-analysis-of-pressure-volume-curves" class="section level1">
+<h1><strong>A toolbox for the analysis of pressure volume curves</strong></h1>
+<p>Experimentally obtained pressure volume curves are widely used for understanding and predicting the strategies of plants to cope with drought stress. By the use of this package, the efficient and reproducible analysis and display of entire experimental datasets is enabled. The methodology of analysing pressure volume curves is well worked out (e.g. <strong>MPatlett et al. 2012</strong>) and has been adapted by this package.</p>
+<p>The package contains a dataset obtained experimentally on <em>Brassica oleracea</em> var. <em>gongylodes</em> for the manufacturing of pressure volume curves:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pressure_volume_data</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>weather_data</span></code></pre></div>
+<div id="pressure-volume-curve-analysis-routine" class="section level2">
+<h2>Pressure volume curve analysis routine</h2>
+<p>Pressure volume curves are determined by plotting inversely transformed water potential <span class="math inline">\((-1/MPa)\)</span> as a function of relative water deficit (<span class="math inline">\(RWD\)</span>, <span class="math inline">\(percentage\)</span>). To determine the turgor loss point by the use of this package, calculate <span class="math inline">\(RWD\)</span> first:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pv <span class="ot">&lt;-</span> <span class="fu">RelativeWaterDeficit</span>(pressure_volume_data)</span></code></pre></div>
+<p><span class="math inline">\(RWD\)</span> is calculated as:</p>
+<p><span class="math inline">\(RWD = 100 - 100 * ((FM - DM) (FMs - DM)^{-1})\)</span></p>
+<p>whereas <span class="math inline">\(FM\)</span> = fresh mass, <span class="math inline">\(DM\)</span> = dry mass and <span class="math inline">\(FMs\)</span> = fresh mass at water saturation.</p>
+<p>Before continuing, check the raw data for an initial plateau. Data points in the initial part of the water potential versus RWD plot with a stronger then expected decline need to be omitted. Otherwise, the results are biased and fitting might not succeed.</p>
+<div id="saturated-fresh-mass" class="section level3">
+<h3>Saturated Fresh Mass</h3>
+<p>In cases where the highest measured fresh mass does not equal the turgid mass, calculation of saturated fresh mass by the function <strong>FMSaturated</strong> is recommended. The function fits fresh mass values above an approximated turgor loss point linearly to water potential. The point where water potential of the linear regression line is zero equals the saturated water content.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> pressure_volume_data</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">FMSaturated</span>(df)</span></code></pre></div>
+</div>
+<div id="turgor-loss-point" class="section level3">
+<h3>Turgor Loss Point</h3>
+<p>The function <strong>TurgorLossPoint</strong> fits the data using the Gauss-Newton algorithm of nls() to a combined exponential and linear model. The exponential and linear parts are extracted and RWD at turgor loss point is localized at their point of minimum distance. The result is outputted as a list and a plot:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pv <span class="ot">&lt;-</span> <span class="fu">RelativeWaterDeficit</span>(pressure_volume_data)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">TurgorLossPoint</span>(pv)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="osmotic-potential" class="section level3">
+<h3>Osmotic Potential</h3>
+<p>The function <strong>OsmoticPot</strong> allows the calculation of water potential at turgor loss point, osmotic potential at full saturation and apoplastic fraction.</p>
+<p>First, RWD at turgor loss point is derived by the function <strong>TurgorLossPoint</strong>. The osmotic potential is then derived by fitting a linear regression line with the Gauss-Newton algorithm of nls() to the water potential data following the turgor loss point. The y- and x-axis intercept of the regression line gives the osmotic potential at full hydration (op.full.sat) and the RWD at zero 1/-Psi, respectively. RWD at zero 1/-Psi is then transferred to RWC at zero 1/-Psi to derive apoplastic fraction #’ (apo.fract) . Water potential at turgor loss point equals the value of the osmotic potential fit at the relative water deficit at turgor loss point:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pv <span class="ot">&lt;-</span> <span class="fu">RelativeWaterDeficit</span>(pressure_volume_data)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">OsmoticPot</span>(pv)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="modulus-of-elasticity" class="section level3">
+<h3>Modulus of Elasticity</h3>
+<p>Modulus of elasticity can be determined by the function <strong>ModElasticity</strong>. Relative water deficit at turgor loss point and osmotic potential are first calculated via the functions ‘TurgorLossPoint’ and ‘OsmoticPot’.</p>
+<p>Pressure potential is derived by subtracting osmotic potential from water potential. The part of the pressure potential prior the turgor loss point is then fitted linearly and after transforming RWD (%) to RWC the modulus of elasticity (M.Elasticity) equals the slope of the fitted line:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ModElasticity</span>(pv)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<p>Bartlett, M.K. et al., 2014. Global analysis of plasticity in turgor loss point, a key drought tolerance trait. Ecology letters, 17(12), pp.1580-1590.</p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
